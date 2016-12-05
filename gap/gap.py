@@ -1,28 +1,31 @@
-'''
-this script is using the gap statistics to run k-means for many times to find the best K value for the dataset
-kmean really depends on the initial points and thus the results can be different given different initial points; 
-therefore use sklearn packages to run many times with different initial ponits, and this can be ONE parameter for the gap statistics;
-the following is just a raw way to compute, and set([tuple(a) for a in mu]) == set([tuple(a) for a in oldmu]) can be BUG and quite inefficient;
+'''this script is using the gap statistics to run k-means algorithm for many times to 
+find the best K value for the dataset.
+
+because k-mean really depends on the initial points and thus the results can be different given different initial points; 
+therefore use sklearn packages to run many times with different initial ponits, and this can be one parameter for the gap statistics.
+
+this module should be imported into other python scripts and combined with sklearn to find the best K value.
 
 
-no command line running, this code is for importing into other scripts;
 parameters:
-refs: np.array or None, it is the replicated data that you want to compare with if there exists one; if no existing replicated/proper data, just use None, and the function
-will automatically generates them; 
-B: int, the number of replicated samples to run gap-statistics; it is recommended as 10, and it should not be changed/decreased that to a smaller value;
-K: list type, the range of K values to test on;
-N_init: int, states the number of initial starting points for each K-mean running under sklearn, in order to get stable clustering result each time; 
-you may not need such many starting points, so it can be reduced to a smaller number to fasten the computation;
-n_jobs: clarifies the parallel computing, could fasten the computation, this can be only changed inside the script, not as an argument of the function;
+
+    refs: np.array or None, it is the replicated data that you want to compare with if there exists one; 
+    if no existing replicated/proper data, just use None, and the function will automatically generates them; 
+    
+    B: int, the number of replicated samples to run gap-statistics; it is recommended as 10, and it should not be changed/decreased that to a smaller value;
+    
+    K: list, the range of K values to test on;
+    
+    N_init: int, states the number of initial starting points for each K-mean running under sklearn, in order to get stable clustering result each time; 
+    you may not need such many starting points, so it can be reduced to a smaller number to quicken the computation;
+    
+    n_jobs: int, clarifies the parallel computing, could fasten the computation, this can be only changed inside the script, not as an argument of the function;
 '''
 import numpy as np
 import random
 from sklearn.cluster import KMeans as Kmeans
 import scipy
-import pylab
-pylab.ion()
-import matplotlib.pyplot as plt
-
+import sys
 
 logging = False
 def printLog(*log):
@@ -166,11 +169,14 @@ def find_optimal_k(gaps, s_k, K):
         optimal_k = K[-1]
     return optimal_k
 
+def main():
+    pass
 
 if __name__ == '__main__':
-    ##test and compare the two gaps
-    X = init_board_gauss(200,4, clear = True)
-    #X = init_board_gauss(200,4, clear = False)
-    plt.scatter(X[:,0],X[:,1])
-    gaps, sk, K = gap_statistic(X)    
-    printLog(find_optimal_k(gaps, sk, K))
+    # uncomment and test and compare the two gaps if you want
+    # X = init_board_gauss(200,4, clear = True)
+    # #X = init_board_gauss(200,4, clear = False)
+    # plt.scatter(X[:,0],X[:,1])
+    # gaps, sk, K = gap_statistic(X)    
+    # printLog(find_optimal_k(gaps, sk, K))
+    sys.exit(main())
