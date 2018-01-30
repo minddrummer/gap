@@ -27,7 +27,7 @@ parameters:
 
 
 # to use as a module in python
-    from gapkmean import gap
+    from gap import gap
 
 # to find the best K value of K-mean algorithm
 
