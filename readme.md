@@ -35,4 +35,6 @@ parameters:
     gaps, s_k, K = gap.gap_statistic(data, refs=None, B=10, K=range(1,11), N_init = 10)
     bestKValue = gap.find_optimal_k(gaps, s_k, K)
 
-    
+# to run the test suite
+
+    python setup.py test    
